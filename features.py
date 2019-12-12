@@ -64,6 +64,7 @@ def extract_absolute_difference(sentence1, sentence2):
     return t1, t2, t3, t4, t5
 
 def extract_mmr_t(s1, s2):
+    """Common in {all tokens, adjectives, adverbs, nouns, and verbs}"""
     shorter = 1
     if(len(s1) > len(s2)):  shorter = 2
 

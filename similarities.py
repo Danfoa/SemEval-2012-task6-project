@@ -182,6 +182,9 @@ def ngrams_similarity(s1, s2, filter_stop_words=True):
     return sim2, sim3, sim4
 
 def lemmas_similarity(s1, s2, filter_stop_words=True):
+    """
+    Jaccard lematized sentences similarity 
+    """
     # Tokenize by sentences into words in lower case 
     tokenized_sentence_1 = nltk.word_tokenize(s1.lower())
     tokenized_sentence_2 = nltk.word_tokenize(s2.lower())
@@ -205,7 +208,10 @@ def lemmas_similarity(s1, s2, filter_stop_words=True):
         return 0
 
 def information_content_similarity(s1, s2):
-    ''' compute the sentence similairty using information content from wordnet '''
+    """ 
+    Compute the sentence similairty using information content from wordnet
+    (words are disambiguated first to Synsets by means of Lesk algorithm) 
+    """
     lemmas_sentence_1, tagged_sentence_1 = lemmatize_sentence(s1.lower())
     lemmas_sentence_2, tagged_sentence_2 = lemmatize_sentence(s2.lower())
 
@@ -249,6 +255,9 @@ def information_content_similarity(s1, s2):
     return score
 
 def simple_baseline_similarity(s1, s2):
+    """
+    Find the sequence similarity between two words considering lemmas and words
+    """
     # Tokenize by sentences into words in lower case 
     tokenized_sentence_1 = nltk.word_tokenize(s1.lower())
     tokenized_sentence_2 = nltk.word_tokenize(s2.lower())
@@ -271,6 +280,10 @@ def simple_baseline_similarity(s1, s2):
     return word_sim, lemm_sim
 
 def dependency_similarity(s1, s2):
+    """
+    Find the jaccard similarity between the semantic depency parsing nodes of the sentences
+    using CoreNLP dependency parser.
+    """
     # pass
     parsed_sentence_1 = parser.raw_parse(s1)
     parsed_sentence_2 = parser.raw_parse(s2)
@@ -289,7 +302,10 @@ def dependency_similarity(s1, s2):
         return 0
 
 def synsets_similarity(s1, s2):
-         
+    """
+    Find the jaccard similarity between two sentences synsets using lesk algorithm
+    to disambiguate words given their context.
+    """
     lemmas_sentence_1, tagged_sentence_1 = lemmatize_sentence(s1.lower())
     lemmas_sentence_2, tagged_sentence_2 = lemmatize_sentence(s2.lower())
 
@@ -328,6 +344,10 @@ def synsets_similarity(s1, s2):
         return 0 
 
 def get_sentence_mean_vec(sentence):
+    """
+    Provided a sentence of words, find the sentence embedding vector representation
+    using the mean vector from all of the words embedding vector representations.
+    """
     sentence_vecs = numpy.array([])
     
     sent1 = nltk.word_tokenize(sentence)
@@ -363,7 +383,6 @@ def glove_word2vec_vec_similarity(s1, s2):
 
 
 def longest_common_subsequence(s1, s2): 
-    # find the length of the strings 
 
     lemmas_sentence_1, _ = lemmatize_sentence(s1.lower())
     lemmas_sentence_2, _ = lemmatize_sentence(s2.lower())
